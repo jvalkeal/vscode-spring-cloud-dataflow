@@ -69,7 +69,6 @@ jobs:
   - task: pack-publish
     image: vscode-spring-cloud-dataflow-ci-image
     file: git-repo/ci/tasks/vscode-spring-cloud-dataflow-publish.yml
-
   - put: artifactory-repo
     params:
       repo: ext-private-local
