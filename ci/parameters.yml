@@ -5,3 +5,4 @@ github-repo: "https://github.com/spring-projects-experimental/vscode-spring-clou
 github-repo-raw: "https://raw.githubusercontent.com/spring-projects-experimental/vscode-spring-cloud-dataflow"
 artifactory-server: "https://repo.spring.io/"
 branch: "master"
+build-name: "vscode-spring-cloud-dataflow"

@@ -1,4 +1,15 @@
 #################################################
+# Resource Types
+#################################################
+resource_types:
+
+- name: artifactory-resource
+  type: docker-image
+  source:
+    repository: springio/artifactory-resource
+    tag: 0.0.10
+
+#################################################
 # Resources
 #################################################
 resources:
@@ -25,6 +36,14 @@ resources:
     password: ((artifactory-password))
     tag: ((branch))
 
+- name: artifactory-repo
+  type: artifactory-resource
+  source:
+    uri: ((artifactory-server))
+    username: ((artifactory-username))
+    password: ((artifactory-password))
+    build_name: ((build-name))
+
 #################################################
 # Jobs
 #################################################
@@ -50,3 +69,12 @@ jobs:
   - task: pack-publish
     image: vscode-spring-cloud-dataflow-ci-image
     file: git-repo/ci/tasks/vscode-spring-cloud-dataflow-publish.yml
+
+  - put: artifactory-repo
+    params:
+      repo: ext-private-local
+      folder: distribution-repository
+      strip_snapshot_timestamps: false
+      disable_checksum_uploads: true
+      include:
+        - "**/*.vsix"
