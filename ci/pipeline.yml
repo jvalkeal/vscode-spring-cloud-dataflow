@@ -93,14 +93,13 @@ jobs:
       BUILD_NAME: ((build-name))
   - put: artifactory-repo
     params:
-      repo: ext-private-local
+      repo: ((artifactory-repo))
       folder: distribution-repository
       strip_snapshot_timestamps: false
       disable_checksum_uploads: true
       include:
         - "**/*.vsix"
     on_success:
-      aggregate:
-      - put: vscode-spring-cloud-dataflow-trigger
-        params:
-          file: triggers/((build-name))/*
+      put: vscode-spring-cloud-dataflow-trigger
+      params:
+        file: triggers/((build-name))/*
