@@ -3,6 +3,7 @@ inputs:
 - name: git-repo
 outputs:
 - name: distribution-repository
+- name: triggers
 run:
   path: bash
   args:
