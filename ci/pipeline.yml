@@ -1,0 +1,52 @@
+#################################################
+# Resources
+#################################################
+resources:
+
+- name: git-repo
+  type: git
+  source:
+    uri: ((github-repo))
+    branch: ((branch))
+    ignore_paths: ["ci/images/*"]
+
+- name: ci-images-git-repo
+  type: git
+  source:
+    uri: ((github-repo))
+    branch: ((branch))
+    paths: ["ci/images/*"]
+
+- name: vscode-spring-cloud-dataflow-ci-image
+  type: docker-image
+  source:
+    repository: springsource-docker-private-local.jfrog.io/vscode-spring-cloud-dataflow-ci-image
+    username: ((artifactory-username))
+    password: ((artifactory-password))
+    tag: ((branch))
+
+#################################################
+# Jobs
+#################################################
+jobs:
+
+- name: vscode-spring-cloud-dataflow-ci-images
+  plan:
+  - get: ci-images-git-repo
+    trigger: true
+  - put: vscode-spring-cloud-dataflow-ci-image
+    params:
+      build: ci-images-git-repo/ci/images/vscode-spring-cloud-dataflow-ci-image
+      build_args:
+        BRANCH: ((branch))
+
+- name: publish-vscode-spring-cloud-dataflow
+  plan:
+  - get: vscode-spring-cloud-dataflow-ci-image
+    passed:
+    - vscode-spring-cloud-dataflow-ci-images
+  - get: git-repo
+    trigger: true
+  - task: pack-publish
+    image: vscode-spring-cloud-dataflow-ci-image
+    file: git-repo/ci/tasks/vscode-spring-cloud-dataflow-publish.yml

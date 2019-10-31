@@ -1,0 +1,2 @@
+//repo.spring.io/api/npm/:_authToken=${NPM_TOKEN_REPO_SPRING_IO}
+strict-ssl=true
