@@ -1,4 +1,15 @@
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+:toc:
+:toc-placement!:
 = Spring Cloud Data Flow VSCode Extension Documentation
+
+toc::[]
 
 _Spring Cloud Data Flow VSCode Extension_ main focus is to ease managing _SCDF_
 environments from a developer perspective and to provide easier way to debug
