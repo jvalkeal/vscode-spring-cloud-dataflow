@@ -25,6 +25,7 @@ import { ServerNode, ServerMode } from './models/server-node';
 import { ScdfModel } from '../service/scdf-model';
 import { TYPES } from '../types';
 import { ServerRegistrationManager } from '../service/server-registration-manager';
+import { ServerStatesManager } from '../service/server-states-manager';
 
 @injectable()
 export class StreamsExplorerProvider implements TreeDataProvider<BaseNode>, TextDocumentContentProvider {
@@ -35,6 +36,7 @@ export class StreamsExplorerProvider implements TreeDataProvider<BaseNode>, Text
 
     constructor(
         @inject(TYPES.ServerRegistrationManager) private serverRegistrationManager: ServerRegistrationManager,
+        @inject(TYPES.ServerStatesManager) private serverStatesManager: ServerStatesManager,
 		@inject(DITYPES.IconManager) private iconManager: IconManager,
 		@inject(DITYPES.ExtensionContext) private extensionContext: ExtensionContext
     ) {
@@ -78,7 +80,11 @@ export class StreamsExplorerProvider implements TreeDataProvider<BaseNode>, Text
             const servers = await this.serverRegistrationManager.getServers();
 			const ret: BaseNode[] = [];
 			servers.forEach(registration => {
-				ret.push(new ServerNode(this.iconManager, registration, ServerMode.Streams));
+				ret.push(new ServerNode(
+					this.iconManager,
+					registration,
+					ServerMode.Streams,
+					this.serverStatesManager.getState(registration.url)));
 			});
 			resolve(ret);
 		});
