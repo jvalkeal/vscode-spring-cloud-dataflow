@@ -23,12 +23,13 @@ import {
 } from './scdf-model';
 import { ServerRegistration } from './server-registration-manager';
 import { CONFIG_SCDF_CONNECTION_TRUSTSSL } from '../extension-globals';
+import { ServerState } from './server-states-manager';
 
 export class ScdfService {
 
     private instance: AxiosInstance;
 
-    constructor(registration: ServerRegistration) {
+    constructor(private registration: ServerRegistration) {
         const trustssl: boolean = workspace.getConfiguration().get(CONFIG_SCDF_CONNECTION_TRUSTSSL, false);
         this.instance = axios.create({
             auth: registration.credentials,
@@ -257,4 +258,22 @@ export class ScdfService {
             }
         });
     }
+
+    public serverState(): Thenable<ServerState> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let url = this.registration.url + '/about';
+                const response = await this.instance.get(url);
+                if (response.data) {
+                    resolve(ServerState.Online);
+                } else {
+                    resolve(ServerState.Offline);
+                }
+            }
+            catch (error) {
+                resolve(ServerState.Offline);
+            }
+        });
+    }
+
 }
