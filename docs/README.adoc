@@ -5,11 +5,34 @@ ifdef::env-github[]
 :caution-caption: :fire:
 :warning-caption: :warning:
 endif::[]
+
+ifndef::env-github[]
 :toc:
 :toc-placement!:
+endif::[]
+
 = Spring Cloud Data Flow VSCode Extension Documentation
 
+ifdef::env-github[]
 toc::[]
+endif::[]
+
+ifndef::env-github[]
+include::extension-basics.adoc[]
+
+include::registering-environment.adoc[]
+
+include::manage-applications.adoc[]
+
+include::manage-streams.adoc[]
+
+include::manage-tasks.adoc[]
+
+include::manage-jobs.adoc[]
+
+include::install-extension.adoc[]
+endif::[]
+
 
 _Spring Cloud Data Flow VSCode Extension_ main focus is to ease managing _SCDF_
 environments from a developer perspective and to provide easier way to debug
@@ -34,7 +57,6 @@ more about how to install this extension.
 ====
 endif::[]
 
-
 image::images/vscode-docs-generic-1.png[]
 
 ifdef::env-github[]
@@ -53,19 +75,4 @@ link:manage-jobs.adoc[]
 link:install-extension.adoc[]
 endif::[]
 
-ifndef::env-github[]
-include::extension-basics.adoc[]
-
-include::registering-environment.adoc[]
-
-include::manage-applications.adoc[]
-
-include::manage-streams.adoc[]
-
-include::manage-tasks.adoc[]
-
-include::manage-jobs.adoc[]
-
-include::install-extension.adoc[]
-endif::[]
 
