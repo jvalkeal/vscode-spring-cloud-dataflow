@@ -5,17 +5,12 @@ ifdef::env-github[]
 :caution-caption: :fire:
 :warning-caption: :warning:
 endif::[]
-
-ifndef::env-github[]
 :toc:
 :toc-placement!:
-endif::[]
 
 = Spring Cloud Data Flow VSCode Extension Documentation
 
-ifdef::env-github[]
 toc::[]
-endif::[]
 
 ifdef::env-github[]
 link:extension-basics.adoc[]
