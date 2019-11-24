@@ -13,7 +13,7 @@ endif::[]
 toc::[]
 
 ifdef::env-github[]
-link:extension-basics.adoc[]
+link:extension-basics.adoc[Extension Basics]
 
 link:registering-environment.adoc[]
 
