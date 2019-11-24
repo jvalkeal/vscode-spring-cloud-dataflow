@@ -24,6 +24,17 @@ more about how to install this extension.
 
 image::images/vscode-docs-generic-1.png[]
 
+ifdef::env-github[]
+link::extension-basics.adoc[]
+link::registering-environment.adoc[]
+link::manage-applications.adoc[]
+link::manage-streams.adoc[]
+link::manage-tasks.adoc[]
+link::manage-jobs.adoc[]
+link::install-extension.adoc[]
+endif::[]
+
+ifndef::env-github[]
 include::extension-basics.adoc[]
 
 include::registering-environment.adoc[]
@@ -37,3 +48,5 @@ include::manage-tasks.adoc[]
 include::manage-jobs.adoc[]
 
 include::install-extension.adoc[]
+endif::[]
+
