@@ -20,7 +20,7 @@ ifdef::env-github[]
 [NOTE]
 ====
 As we're still in an initial development stage, this extension is not
-yet available from a VSCode marketplace. See link:vscode-install-extension.adoc[]
+yet available from a VSCode marketplace. See link:install-extension.adoc[]
 more about how to install this extension.
 ====
 endif::[]
