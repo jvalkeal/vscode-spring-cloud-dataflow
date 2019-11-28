@@ -37,6 +37,11 @@
 	"contributes": {
 		"commands": [
 			{
+				"command": "vscode-spring-cloud-dataflow.webview.test",
+				"title": "Webview Test",
+				"category": "SCDF"
+			},
+			{
 				"command": "vscode-spring-cloud-dataflow.explorer.refresh",
 				"title": "Refresh Explorer",
 				"category": "SCDF",

@@ -50,6 +50,7 @@ import { ScdfLogCloseTaskCommand } from './scdf-log-close-task-command';
 import { TasksExecutionDeleteCommand } from './tasks-execution-delete-command';
 import { AppsOpenImportCommand } from './apps-open-import-command';
 import { LsRestartCommand } from './ls-restart-command';
+import { WebviewTestCommand } from './webview-test-command';
 
 const commandsContainerModule = new ContainerModule((bind) => {
     bind<ServerRegistrationManager>(TYPES.ServerRegistrationManager).to(ServerRegistrationManager).inSingletonScope();
@@ -86,5 +87,6 @@ const commandsContainerModule = new ContainerModule((bind) => {
     bind<Command>(DITYPES.Command).to(ScdfLogCloseTaskCommand);
     bind<Command>(DITYPES.Command).to(ExplorerRefreshCommand);
     bind<Command>(DITYPES.Command).to(LsRestartCommand);
+    bind<Command>(DITYPES.Command).to(WebviewTestCommand);
 });
 export default commandsContainerModule;

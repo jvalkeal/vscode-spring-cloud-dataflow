@@ -22,5 +22,6 @@ export const TYPES = {
     JobsExplorerProvider: Symbol('JobsExplorerProvider'),
     ServerRegistrationStatusBarManagerItem: Symbol('ServerRegistrationStatusBarManagerItem'),
     DebugManager: Symbol('DebugManager'),
-    DebugProvider: Symbol('DebugProvider')
+    DebugProvider: Symbol('DebugProvider'),
+    AngularWebviewManager: Symbol('AngularWebviewManager')
 };
