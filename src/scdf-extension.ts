@@ -33,7 +33,9 @@ import { ServerRegistrationManager } from './service/server-registration-manager
 import { JobsExplorerProvider } from './explorer/jobs-explorer-provider';
 import { CONFIG_SCDF_NOTIFICATION_LOCATION, CONFIG_SCDF_LS_JAVAHOME } from './extension-globals';
 import { ServerStatesManager } from './service/server-states-manager';
-import { AngularWebviewManager } from './webview/angular-webview-manager';
+import { WebviewManager } from './webview/webview-manager';
+import { WebviewConfig } from './webview/webview-config';
+import { StreamWebviewConfig } from './webview/stream-webview-config';
 
 export class ScdfExtension extends DiExtension {
 
@@ -71,7 +73,8 @@ export class ScdfExtension extends DiExtension {
         const serverRegistrationManager = container.get<ServerRegistrationManager>(TYPES.ServerRegistrationManager);
         container.bind<ExtensionActivateAware>(DITYPES.ExtensionActivateAware).toConstantValue(serverRegistrationManager);
 
-        container.bind<AngularWebviewManager>(TYPES.AngularWebviewManager).to(AngularWebviewManager).inSingletonScope();
+        container.bind<WebviewConfig>(TYPES.WebviewConfig).to(StreamWebviewConfig).inSingletonScope();
+        container.bind<WebviewManager>(TYPES.WebviewManager).to(WebviewManager).inSingletonScope();
 
         // to fire build flow
         container.get<AppsExplorerProvider>(TYPES.AppsExplorerProvider);

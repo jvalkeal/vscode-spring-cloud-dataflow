@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { window, ViewColumn, Uri, ExtensionContext } from'vscode';
+import { window, ViewColumn, Uri, ExtensionContext } from 'vscode';
 import * as path from 'path';
 
 export interface AngularWebviewOptions {
@@ -36,6 +36,11 @@ export class AngularWebview {
             }
         );
         xxx.webview.html = this.getWebViewContent();
+
+        xxx.webview.onDidReceiveMessage(message => {
+            console.log('Receive message from webview', message);
+            xxx.webview.postMessage(message);
+        });
     }
 
     resourceUri(...segments: string[]): Uri {
@@ -45,20 +50,17 @@ export class AngularWebview {
     }
 
     getWebViewContent(): string {
-        return `
-        <!doctype html>
+        return `<!doctype html>
         <html lang="en">
         <head>
           <meta charset="utf-8">
-          <title>Angular8WithWebpack4</title>
           <base href="/">
-
           <meta name="viewport" content="width=device-width, initial-scale=1">
         </head>
         <body>
           <app-root></app-root>
-        <script type="text/javascript" src="${this.resourceUri(this.options.scriptPath).toString()}"></script></body>
-        </html>
-        `;
+          <script type="text/javascript" src="${this.resourceUri(this.options.scriptPath).toString()}"></script>
+        </body>
+        </html>`;
     }
 }

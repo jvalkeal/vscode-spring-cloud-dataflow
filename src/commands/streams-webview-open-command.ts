@@ -16,20 +16,21 @@
 import { injectable, inject } from 'inversify';
 import { Command } from '@pivotal-tools/vscode-extension-di';
 import { TYPES } from '../types';
-import { AngularWebviewManager } from '../webview/angular-webview-manager';
+import { WebviewManager } from '../webview/webview-manager';
+import { COMMAND_SCDF_STREAMS_WEBVIEW_OPEN, WEBVIEW_STREAMS_VIEWTYPE } from '../extension-globals';
 
 @injectable()
-export class WebviewTestCommand implements Command {
+export class StreamsWebviewOpenCommand implements Command {
 
     constructor(
-        @inject(TYPES.AngularWebviewManager) private angularWebviewManager: AngularWebviewManager
+        @inject(TYPES.WebviewManager) private webviewManager: WebviewManager
     ) {}
 
     get id() {
-        return 'vscode-spring-cloud-dataflow.webview.test';
+        return COMMAND_SCDF_STREAMS_WEBVIEW_OPEN;
     }
 
     async execute() {
-        this.angularWebviewManager.open();
+        this.webviewManager.open(WEBVIEW_STREAMS_VIEWTYPE);
     }
 }

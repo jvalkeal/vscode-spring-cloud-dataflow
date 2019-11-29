@@ -37,11 +37,6 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "vscode-spring-cloud-dataflow.webview.test",
-				"title": "Webview Test",
-				"category": "SCDF"
-			},
-			{
 				"command": "vscode-spring-cloud-dataflow.explorer.refresh",
 				"title": "Refresh Explorer",
 				"category": "SCDF",
@@ -152,6 +147,11 @@
 			{
 				"command": "vscode-spring-cloud-dataflow.streams.app.log",
 				"title": "Show Log",
+				"category": "SCDF"
+			},
+			{
+				"command": "vscode-spring-cloud-dataflow.streams.webviewopen",
+				"title": "Stream Webview",
 				"category": "SCDF"
 			},
 			{
@@ -616,6 +616,7 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile",
 		"test": "node ./out/test/runTest.js",
+		"scdfwebview": "node scdfwebview.js",
 		"scdflsp": "node scdflsp.js",
 		"scdflsplocal": "node scdflsplocal.js",
 		"vsce-package": "vsce package",
@@ -627,11 +628,14 @@
 		"@types/mocha": "5.2.7",
 		"@types/node": "10.12.21",
 		"@types/vscode": "1.37.0",
+		"@pivotal-tools/vscode-spring-cloud-dataflow-stream-webview": "file:/home/jvalkealahti/repos/jvalkeal/vscode-spring-cloud-dataflow-stream-webview-wip/pivotal-tools-vscode-spring-cloud-dataflow-stream-webview-0.0.1.tgz",
+		"cp-file": "7.0.0",
 		"form-data": "2.5.1",
 		"glob": "7.1.4",
 		"mocha": "6.2.0",
 		"mvn-artifact-download": "4.0.0",
 		"renamer": "1.1.4",
+		"resolve-file": "0.3.0",
 		"ts-loader": "6.1.0",
 		"tslint": "5.12.1",
 		"typescript": "3.3.1",

@@ -23,5 +23,6 @@ export const TYPES = {
     ServerRegistrationStatusBarManagerItem: Symbol('ServerRegistrationStatusBarManagerItem'),
     DebugManager: Symbol('DebugManager'),
     DebugProvider: Symbol('DebugProvider'),
-    AngularWebviewManager: Symbol('AngularWebviewManager')
+    WebviewManager: Symbol('WebviewManager'),
+    WebviewConfig: Symbol('WebviewConfig')
 };

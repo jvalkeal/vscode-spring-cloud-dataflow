@@ -13,8 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-declare function acquireVsCodeApi(): VsCodeApi;
+import { injectable } from 'inversify';
+import { WebviewConfig } from './webview-config';
+import { WEBVIEW_STREAMS_VIEWTYPE } from '../extension-globals';
 
-declare interface VsCodeApi {
-    postMessage: (message: any) => void
+@injectable()
+export class StreamWebviewConfig implements WebviewConfig {
+
+    get viewType() {
+        return WEBVIEW_STREAMS_VIEWTYPE;
+    }
 }

@@ -14,20 +14,36 @@
  * limitations under the License.
  */
 import { AngularWebview } from './angular-webview';
-import { injectable, inject } from 'inversify';
+import { injectable, inject, multiInject } from 'inversify';
 import { DITYPES } from '@pivotal-tools/vscode-extension-di';
 import { ExtensionContext } from 'vscode';
+import { TYPES } from '../types';
+import { WebviewConfig } from './webview-config';
 
 @injectable()
-export class AngularWebviewManager {
+export class WebviewManager {
 
-    protected webviewMap = new Map<string, AngularWebview>();
+    protected webviews = new Map<string, AngularWebview>();
+    protected configs = new Map<string, WebviewConfig>();
 
     constructor(
-        @inject(DITYPES.ExtensionContext) private context: ExtensionContext
-    ) {}
+        @inject(DITYPES.ExtensionContext) private context: ExtensionContext,
+        @multiInject(TYPES.WebviewConfig) webviewConfigs: WebviewConfig[]
+    ) {
+        webviewConfigs.forEach(config => {
+            this.configs.set(config.viewType, config);
+        });
+    }
 
-    createWebview(): AngularWebview {
+    public open(viewType: string): void {
+        const config = this.configs.get(viewType);
+        if (config) {
+            const webview = this.createWebview(config);
+            webview.open();
+        }
+    }
+
+    protected createWebview(config: WebviewConfig): AngularWebview {
         return new AngularWebview(
             {
                 localResourceRoots: [
@@ -37,10 +53,5 @@ export class AngularWebviewManager {
             },
             this.context
         );
-    }
-
-    public open(): void {
-        const xxx = this.createWebview();
-        xxx.open();
     }
 }
