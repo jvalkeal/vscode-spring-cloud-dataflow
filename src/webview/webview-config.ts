@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+ /**
+  * Configuration interface for defining needed things for webviews.
+  */
 export interface WebviewConfig {
     viewType: string;
 }

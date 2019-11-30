@@ -13,33 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { window, ViewColumn, Uri, ExtensionContext } from 'vscode';
+import { window, ViewColumn, Uri, ExtensionContext, Webview } from 'vscode';
 import * as path from 'path';
 
-export interface AngularWebviewOptions {
+export interface WebviewOptions {
     localResourceRoots: string[];
     scriptPath: string;
 }
 
-export class AngularWebview {
+export class DefaultWebview {
 
     constructor(
-        private options: AngularWebviewOptions,
+        private options: WebviewOptions,
         private context: ExtensionContext
     ) {}
 
     public open(): void {
-        const xxx = window.createWebviewPanel('viewType', 'title', ViewColumn.One,
+        const panel = window.createWebviewPanel('viewType', 'title', ViewColumn.One,
             {
                enableScripts: true,
                localResourceRoots: this.options.localResourceRoots.map(r => this.resourceUri(r))
             }
         );
-        xxx.webview.html = this.getWebViewContent();
+        panel.webview.html = this.getWebViewContent();
 
-        xxx.webview.onDidReceiveMessage(message => {
+        panel.webview.onDidReceiveMessage(message => {
             console.log('Receive message from webview', message);
-            xxx.webview.postMessage(message);
+            panel.webview.postMessage(message);
         });
     }
 
@@ -50,6 +50,7 @@ export class AngularWebview {
     }
 
     getWebViewContent(): string {
+        const nonce = this.getNonce();
         return `<!doctype html>
         <html lang="en">
         <head>
@@ -62,5 +63,14 @@ export class AngularWebview {
           <script type="text/javascript" src="${this.resourceUri(this.options.scriptPath).toString()}"></script>
         </body>
         </html>`;
+    }
+
+    getNonce(): string {
+        let text = '';
+        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (let i = 0; i < 32; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
     }
 }

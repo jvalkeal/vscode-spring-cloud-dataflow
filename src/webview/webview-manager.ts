@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { AngularWebview } from './angular-webview';
+import { DefaultWebview } from './default-webview';
 import { injectable, inject, multiInject } from 'inversify';
 import { DITYPES } from '@pivotal-tools/vscode-extension-di';
 import { ExtensionContext } from 'vscode';
 import { TYPES } from '../types';
 import { WebviewConfig } from './webview-config';
 
+/**
+ * Central place to control lifecycle of a webviews based on injected WebviewConfig's.
+ */
 @injectable()
 export class WebviewManager {
 
-    protected webviews = new Map<string, AngularWebview>();
-    protected configs = new Map<string, WebviewConfig>();
+    private webviews = new Map<string, DefaultWebview>();
+    private configs = new Map<string, WebviewConfig>();
 
     constructor(
         @inject(DITYPES.ExtensionContext) private context: ExtensionContext,
@@ -43,8 +46,8 @@ export class WebviewManager {
         }
     }
 
-    protected createWebview(config: WebviewConfig): AngularWebview {
-        return new AngularWebview(
+    protected createWebview(config: WebviewConfig): DefaultWebview {
+        return new DefaultWebview(
             {
                 localResourceRoots: [
                     'dist/webview'
