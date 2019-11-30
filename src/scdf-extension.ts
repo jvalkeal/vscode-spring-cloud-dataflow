@@ -34,8 +34,8 @@ import { JobsExplorerProvider } from './explorer/jobs-explorer-provider';
 import { CONFIG_SCDF_NOTIFICATION_LOCATION, CONFIG_SCDF_LS_JAVAHOME } from './extension-globals';
 import { ServerStatesManager } from './service/server-states-manager';
 import { WebviewManager } from './webview/webview-manager';
-import { WebviewConfig } from './webview/webview-config';
-import { StreamWebviewConfig } from './webview/stream-webview-config';
+import { StreamWebviewFactory } from './webview/stream-webview-factory';
+import { WebviewFactory } from './webview/webview-factory';
 
 export class ScdfExtension extends DiExtension {
 
@@ -73,7 +73,7 @@ export class ScdfExtension extends DiExtension {
         const serverRegistrationManager = container.get<ServerRegistrationManager>(TYPES.ServerRegistrationManager);
         container.bind<ExtensionActivateAware>(DITYPES.ExtensionActivateAware).toConstantValue(serverRegistrationManager);
 
-        container.bind<WebviewConfig>(TYPES.WebviewConfig).to(StreamWebviewConfig).inSingletonScope();
+        container.bind<WebviewFactory>(TYPES.WebviewFactory).to(StreamWebviewFactory).inSingletonScope();
         container.bind<WebviewManager>(TYPES.WebviewManager).to(WebviewManager).inSingletonScope();
 
         // to fire build flow

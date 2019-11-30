@@ -24,5 +24,5 @@ export const TYPES = {
     DebugManager: Symbol('DebugManager'),
     DebugProvider: Symbol('DebugProvider'),
     WebviewManager: Symbol('WebviewManager'),
-    WebviewConfig: Symbol('WebviewConfig')
+    WebviewFactory: Symbol('WebviewFactory')
 };

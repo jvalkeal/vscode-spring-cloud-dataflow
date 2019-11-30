@@ -13,14 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { injectable } from 'inversify';
-import { WebviewConfig } from './webview-config';
+import { ExtensionContext, WebviewPanel } from 'vscode';
+import { injectable, inject } from 'inversify';
+import { DITYPES } from '@pivotal-tools/vscode-extension-di';
 import { WEBVIEW_STREAMS_VIEWTYPE } from '../extension-globals';
+import { AngularWebviewFactory } from './webview-factory';
 
 @injectable()
-export class StreamWebviewConfig implements WebviewConfig {
+export class StreamWebviewFactory extends AngularWebviewFactory {
 
-    get viewType() {
+    constructor(
+        @inject(DITYPES.ExtensionContext) context: ExtensionContext
+    ) {
+        super(context);
+    }
+
+    public supportedViewType(): string {
         return WEBVIEW_STREAMS_VIEWTYPE;
+    }
+
+    public build(): WebviewPanel {
+        const panel = super.build();
+        panel.webview.onDidReceiveMessage(message => {
+            console.log('Receive message from webview', message);
+            panel.webview.postMessage(message);
+        });
+        return panel;
     }
 }

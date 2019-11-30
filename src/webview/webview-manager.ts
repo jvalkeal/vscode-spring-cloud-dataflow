@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DefaultWebview } from './default-webview';
+import { ExtensionContext, WebviewPanel } from 'vscode';
 import { injectable, inject, multiInject } from 'inversify';
 import { DITYPES } from '@pivotal-tools/vscode-extension-di';
-import { ExtensionContext } from 'vscode';
 import { TYPES } from '../types';
-import { WebviewConfig } from './webview-config';
+import { WebviewFactory } from './webview-factory';
 
 /**
  * Central place to control lifecycle of a webviews based on injected WebviewConfig's.
@@ -26,35 +25,26 @@ import { WebviewConfig } from './webview-config';
 @injectable()
 export class WebviewManager {
 
-    private webviews = new Map<string, DefaultWebview>();
-    private configs = new Map<string, WebviewConfig>();
+    private panels = new Map<string, WebviewPanel>();
+    private factories = new Map<string, WebviewFactory>();
 
     constructor(
         @inject(DITYPES.ExtensionContext) private context: ExtensionContext,
-        @multiInject(TYPES.WebviewConfig) webviewConfigs: WebviewConfig[]
+        @multiInject(TYPES.WebviewFactory) webviewFactories: WebviewFactory[]
     ) {
-        webviewConfigs.forEach(config => {
-            this.configs.set(config.viewType, config);
+        webviewFactories.forEach(factory => {
+            const viewType = factory.supportedViewType();
+            if (viewType) {
+                this.factories.set(viewType, factory);
+            }
         });
     }
 
     public open(viewType: string): void {
-        const config = this.configs.get(viewType);
-        if (config) {
-            const webview = this.createWebview(config);
-            webview.open();
+        const factory = this.factories.get(viewType);
+        if (factory) {
+            const panel = factory.build();
+            this.panels.set(viewType, panel);
         }
-    }
-
-    protected createWebview(config: WebviewConfig): DefaultWebview {
-        return new DefaultWebview(
-            {
-                localResourceRoots: [
-                    'dist/webview'
-                ],
-                scriptPath: 'dist/webview/bundle.js'
-            },
-            this.context
-        );
     }
 }
