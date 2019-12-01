@@ -628,7 +628,7 @@
 		"@types/mocha": "5.2.7",
 		"@types/node": "10.12.21",
 		"@types/vscode": "1.37.0",
-		"@pivotal-tools/vscode-spring-cloud-dataflow-stream-webview": "file:/home/jvalkealahti/repos/jvalkeal/vscode-spring-cloud-dataflow-webview-flo-wip/pivotal-tools-vscode-spring-cloud-dataflow-webview-flo-0.0.1.tgz",
+		"@pivotal-tools/vscode-spring-cloud-dataflow-webview-flo": "next",
 		"cp-file": "7.0.0",
 		"form-data": "2.5.1",
 		"glob": "7.1.4",
