@@ -33,6 +33,8 @@ export abstract class BaseWebviewFactory implements WebviewFactory {
 
     abstract supportedViewType(): string;
 
+    abstract build(): WebviewPanel;
+
     protected getLocalResourceRoots(): string[] {
         return ['dist/webview'];
     }
@@ -51,9 +53,6 @@ export abstract class BaseWebviewFactory implements WebviewFactory {
         }
         return text;
     }
-
-    abstract build(): WebviewPanel;
-
 }
 
 @injectable()
@@ -66,7 +65,7 @@ export abstract class AngularWebviewFactory extends BaseWebviewFactory {
     }
 
     public build(): WebviewPanel {
-        const panel = window.createWebviewPanel('viewType', 'title', ViewColumn.One,
+        const panel = window.createWebviewPanel(this.supportedViewType(), 'title', ViewColumn.One,
             {
                enableScripts: true,
                localResourceRoots: this.getLocalResourceRoots().map(r => this.resourceUri(r))

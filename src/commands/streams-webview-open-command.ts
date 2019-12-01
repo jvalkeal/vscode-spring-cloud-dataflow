@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { window } from 'vscode';
 import { injectable, inject } from 'inversify';
 import { Command } from '@pivotal-tools/vscode-extension-di';
 import { TYPES } from '../types';
@@ -30,7 +31,14 @@ export class StreamsWebviewOpenCommand implements Command {
         return COMMAND_SCDF_STREAMS_WEBVIEW_OPEN;
     }
 
-    async execute() {
-        this.webviewManager.open(WEBVIEW_STREAMS_VIEWTYPE);
+    async execute(...args: any[]) {
+        console.log('ARGS', args);
+
+        if (window.activeTextEditor) {
+            const resource = window.activeTextEditor.document.uri;
+            console.log('RES', resource);
+        }
+
+        // this.webviewManager.open(WEBVIEW_STREAMS_VIEWTYPE);
     }
 }

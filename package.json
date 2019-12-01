@@ -349,6 +349,10 @@
 					"when": "never"
 				},
 				{
+					"command": "vscode-spring-cloud-dataflow.streams.webviewopen",
+					"when": "editorLangId == scdfs"
+				},
+				{
 					"command": "vscode-spring-cloud-dataflow.tasks.launch",
 					"when": "never"
 				},
